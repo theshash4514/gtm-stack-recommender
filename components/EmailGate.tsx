@@ -79,7 +79,7 @@ export function EmailGate({ onSubmit, loading }: EmailGateProps) {
           </Button>
 
           <p className="text-xs text-[#444141]/40 text-center mt-3 font-normal">
-            We&apos;ll also send you a setup checklist. No spam, ever.
+            No spam, ever. Unsubscribe anytime.
           </p>
         </form>
       </div>
