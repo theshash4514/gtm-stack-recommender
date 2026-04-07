@@ -12,7 +12,7 @@ function getClient(): SupabaseClient | null {
 }
 
 export async function saveLead(data: {
-  email: string;
+  linkedin_url: string;
   company_name?: string;
   answers: Record<string, string>;
   recommended_stack: string;

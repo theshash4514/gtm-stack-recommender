@@ -32,7 +32,7 @@ export default function QuizPage() {
     [currentQuestion, answers]
   );
 
-  const handleEmailSubmit = async (email: string, companyName?: string) => {
+  const handleLeadSubmit = async (linkedinUrl: string, companyName?: string) => {
     const fullAnswers = answers as QuizAnswers;
     const recommendation = getRecommendation(fullAnswers);
 
@@ -43,7 +43,7 @@ export default function QuizPage() {
     setSaving(true);
     try {
       await saveLead({
-        email,
+        linkedin_url: linkedinUrl,
         company_name: companyName,
         answers: answers as Record<string, string>,
         recommended_stack: stackId,
@@ -58,11 +58,8 @@ export default function QuizPage() {
     router.push("/results");
   };
 
-  // Skip email gate — go straight to results
   if (quizComplete) {
-    sessionStorage.setItem("quiz_answers", JSON.stringify(answers));
-    router.push("/results");
-    return null;
+    return <EmailGate onSubmit={handleLeadSubmit} loading={saving} />;
   }
 
   return (

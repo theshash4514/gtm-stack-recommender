@@ -6,18 +6,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 interface EmailGateProps {
-  onSubmit: (email: string, companyName?: string) => void;
+  onSubmit: (linkedinUrl: string, companyName?: string) => void;
   loading?: boolean;
 }
 
 export function EmailGate({ onSubmit, loading }: EmailGateProps) {
-  const [email, setEmail] = useState("");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
   const [companyName, setCompanyName] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      onSubmit(email, companyName || undefined);
+    if (linkedinUrl) {
+      onSubmit(linkedinUrl, companyName || undefined);
     }
   };
 
@@ -35,22 +35,22 @@ export function EmailGate({ onSubmit, loading }: EmailGateProps) {
             Your stack is ready.
           </h2>
           <p className="text-[#444141]/60 font-normal">
-            Where should we send it?
+            Connect with us to see your results.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="email" className="text-[#444141] font-semibold">
-              Email *
+            <Label htmlFor="linkedin" className="text-[#444141] font-semibold">
+              LinkedIn profile URL *
             </Label>
             <Input
-              id="email"
-              type="email"
+              id="linkedin"
+              type="url"
               required
-              placeholder="you@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="https://linkedin.com/in/yourname"
+              value={linkedinUrl}
+              onChange={(e) => setLinkedinUrl(e.target.value)}
               className="mt-1.5 bg-white border-2 border-[#efefef] text-[#444141] placeholder:text-[#444141]/30 h-12 focus:border-[#e45337] focus:ring-[#e45337]/20 rounded-xl"
             />
           </div>
@@ -72,15 +72,11 @@ export function EmailGate({ onSubmit, loading }: EmailGateProps) {
 
           <Button
             type="submit"
-            disabled={!email || loading}
+            disabled={!linkedinUrl || loading}
             className="w-full bg-[#e45337] hover:bg-[#c9432b] text-white h-12 text-lg rounded-xl shadow-lg shadow-[#e45337]/20 transition-all hover:shadow-[#e45337]/30 disabled:opacity-50 font-bold"
           >
             {loading ? "Loading..." : "Get My Stack →"}
           </Button>
-
-          <p className="text-xs text-[#444141]/40 text-center mt-3 font-normal">
-            No spam, ever. Unsubscribe anytime.
-          </p>
         </form>
       </div>
     </div>

@@ -94,6 +94,25 @@ export default function ResultsPage() {
           <WhatToSkip items={recommendation.whatToSkip} />
         </div>
 
+        {/* CTA — Book a call */}
+        <div className="rounded-2xl border-2 border-[#e45337]/20 bg-white p-8 mb-8 text-center">
+          <h3 className="text-2xl font-extrabold text-[#444141] mb-3">
+            Need help implementing your stack?
+          </h3>
+          <p className="text-[#444141]/60 mb-6 max-w-md mx-auto font-normal">
+            I&apos;ve helped clients generate over <span className="font-bold text-[#444141]">$80M in revenue</span>. Book a call and let&apos;s build your GTM engine together.
+          </p>
+          <a
+            href="https://calendly.com/shash-singh/30-min-call-discovery"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="bg-[#e45337] hover:bg-[#c9432b] text-white text-lg px-10 py-4 rounded-xl shadow-lg shadow-[#e45337]/20 transition-all hover:shadow-[#e45337]/30 hover:scale-105 font-bold">
+              Book a Call →
+            </button>
+          </a>
+        </div>
+
         {/* Share */}
         <div className="rounded-2xl border-2 border-[#efefef] bg-white p-6 mb-8">
           <h3 className="text-xl font-extrabold text-[#444141] mb-4 text-center">
