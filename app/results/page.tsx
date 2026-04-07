@@ -100,7 +100,7 @@ export default function ResultsPage() {
             Need help implementing your stack?
           </h3>
           <p className="text-[#444141]/60 mb-6 max-w-md mx-auto font-normal">
-            I&apos;ve helped clients generate over <span className="font-bold text-[#444141]">$80M in revenue</span>. Book a call and let&apos;s build your GTM engine together.
+            I&apos;ve helped clients generate over <span className="font-bold text-[#444141]">$80M in revenue</span>. Book a call and let&apos;s build your AI-powered GTM engine together.
           </p>
           <a
             href="https://calendly.com/shash-singh/30-min-call-discovery"
