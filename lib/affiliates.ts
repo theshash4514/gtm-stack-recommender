@@ -1,4 +1,6 @@
 const affiliateLinks: Record<string, string> = {
+  shopify: "https://www.shopify.com/?utm_source=gtm-stack-recommender&utm_medium=referral",
+  klaviyo: "https://www.klaviyo.com/?utm_source=gtm-stack-recommender&utm_medium=referral",
   apollo: "https://www.apollo.io/?utm_source=gtm-stack-recommender&utm_medium=referral",
   linkedin_sales_nav: "https://business.linkedin.com/sales-solutions?utm_source=gtm-stack-recommender",
   spyfu: "https://www.spyfu.com/?utm_source=gtm-stack-recommender",

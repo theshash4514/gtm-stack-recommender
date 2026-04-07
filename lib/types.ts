@@ -1,4 +1,4 @@
-export type ProductType = "b2b_saas" | "hardware" | "services" | "marketplace";
+export type ProductType = "b2b_saas" | "ecommerce" | "hardware" | "services";
 export type CompanyStage = "pre_revenue" | "early_revenue" | "growing" | "scaling";
 export type TeamSize = "solo" | "small" | "medium" | "large";
 export type Budget = "bootstrapped" | "low" | "mid" | "high";

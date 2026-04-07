@@ -12,9 +12,9 @@ export const questions: QuizQuestion[] = [
     question: "What do you sell?",
     options: [
       { value: "b2b_saas", label: "B2B SaaS" },
-      { value: "hardware", label: "Hardware / Physical Product" },
+      { value: "ecommerce", label: "E-commerce / DTC (physical products sold online)" },
+      { value: "hardware", label: "Hardware / Deep Tech (robotics, industrial, medical)" },
       { value: "services", label: "Services / Agency / Consulting" },
-      { value: "marketplace", label: "Marketplace / Platform" },
     ],
   },
   {
@@ -83,7 +83,13 @@ function tool(
 function getDataLayer(a: QuizAnswers): LayerRecommendation {
   const tools: ToolRecommendation[] = [];
 
-  if (a.channel === "paid_ads") {
+  // E-commerce: customer data comes from Shopify + ad platforms, not Apollo/LinkedIn
+  if (a.product === "ecommerce") {
+    tools.push(tool("Shopify", "E-commerce platform & customer data", "~$39/mo", 39, "Your storefront IS your data layer. Customer behavior, purchase history, LTV — all starts here", "shopify"));
+    if (a.budget !== "bootstrapped") {
+      tools.push(tool("Semrush", "Competitive intelligence & keyword research", "~$129/mo", 129, "See what competitors rank for, their ad spend, and keyword gaps", "semrush"));
+    }
+  } else if (a.channel === "paid_ads") {
     if (a.budget === "bootstrapped" || a.budget === "low") {
       tools.push(tool("SpyFu", "Competitive ad intelligence", "~$39/mo", 39, "See what competitors are running", "spyfu"));
     } else {
@@ -93,7 +99,7 @@ function getDataLayer(a: QuizAnswers): LayerRecommendation {
     tools.push(tool("Apollo.io", "Contact database with free tier", "$0/mo", 0, "900 credits/year (~75/mo). Includes prospecting, basic filters, 2 sequences, and API access. Universal starting point", "apollo"));
   } else if (a.budget === "low") {
     if (a.product === "hardware") {
-      tools.push(tool("LinkedIn Sales Navigator", "Advanced LinkedIn search & filtering", "~$99/mo", 99, "Hardware buyers are on LinkedIn. Filter by company size, industry, role", "linkedin_sales_nav"));
+      tools.push(tool("LinkedIn Sales Navigator", "Advanced LinkedIn search & filtering", "~$99/mo", 99, "Hardware/deep tech buyers are on LinkedIn. Filter by company size, industry, role", "linkedin_sales_nav"));
       tools.push(tool("Apollo.io Basic", "Contact database with unlimited emails", "~$49/mo", 49, "Unlimited email credits, advanced filters, intent data. Pairs with Sales Nav", "apollo"));
     } else {
       tools.push(tool("Apollo.io Basic", "Contact database with unlimited emails", "~$49/mo", 49, "Unlimited email credits, advanced filters, intent data, AI assistant", "apollo"));
@@ -111,13 +117,25 @@ function getDataLayer(a: QuizAnswers): LayerRecommendation {
     }
   }
 
-  return { layer: "data", icon: "🎯", label: "Data & Prospecting", tools };
+  const dataLabel = a.product === "ecommerce" ? "Store & Customer Data" : "Data & Prospecting";
+  const dataIcon = a.product === "ecommerce" ? "🛒" : "🎯";
+
+  return { layer: "data", icon: dataIcon, label: dataLabel, tools };
 }
 
 function getEnrichmentLayer(a: QuizAnswers): LayerRecommendation {
   const tools: ToolRecommendation[] = [];
 
-  if (a.channel === "paid_ads") {
+  // E-commerce: analytics + email/SMS platform (Klaviyo is the default for DTC)
+  if (a.product === "ecommerce") {
+    tools.push(tool("Google Analytics 4", "Web analytics & conversion tracking", "$0/mo", 0, "Track customer journeys, conversion funnels, and acquisition channels", "ga4"));
+    if (a.budget === "bootstrapped") {
+      tools.push(tool("Klaviyo", "Email & SMS marketing for e-commerce", "$0/mo", 0, "Free up to 250 contacts. The default email/SMS platform for DTC brands — deep Shopify integration", "klaviyo"));
+    } else {
+      tools.push(tool("Klaviyo", "Email & SMS marketing for e-commerce", "~$45/mo", 45, "The DTC email/SMS standard. Flows, segments, predictive analytics — all integrated with Shopify", "klaviyo"));
+      tools.push(tool("Hotjar", "Heatmaps & session recordings", "$0/mo", 0, "See where shoppers drop off in your funnel", "hotjar"));
+    }
+  } else if (a.channel === "paid_ads") {
     if (a.budget === "bootstrapped" || a.budget === "low") {
       tools.push(tool("Google Analytics 4", "Web analytics & conversion tracking", "$0/mo", 0, "Understand who clicks your ads", "ga4"));
       tools.push(tool("Hotjar", "Heatmaps & session recordings", "$0/mo", 0, "See how visitors interact with your landing pages", "hotjar"));
@@ -151,11 +169,13 @@ function getEnrichmentLayer(a: QuizAnswers): LayerRecommendation {
 
   // Dynamic label based on channel
   const enrichLabel =
+    a.product === "ecommerce" ? "Customer Intelligence" :
     a.channel === "paid_ads" ? "Analytics & Insights" :
     a.channel === "content" ? "Visitor Intelligence" :
     "Enrichment & Research";
 
   const enrichIcon =
+    a.product === "ecommerce" ? "📊" :
     a.channel === "paid_ads" ? "📈" :
     a.channel === "content" ? "👁️" :
     "🔍";
@@ -165,6 +185,20 @@ function getEnrichmentLayer(a: QuizAnswers): LayerRecommendation {
 
 function getOutreachLayer(a: QuizAnswers): LayerRecommendation {
   const tools: ToolRecommendation[] = [];
+
+  // E-commerce: ads + influencer/UGC, not cold outreach
+  if (a.product === "ecommerce") {
+    tools.push(tool("Meta Ads", "Facebook & Instagram advertising", "Ad spend only", 0, "The #1 DTC acquisition channel. Start here with broad targeting, then narrow based on results", "meta_ads"));
+    if (a.budget !== "bootstrapped") {
+      tools.push(tool("YouTube Ads", "Video advertising for product demos", "Ad spend only", 0, "Product demos and unboxing-style ads convert well for physical products", "youtube_ads"));
+      tools.push(tool("AdCreative.ai", "AI ad creative generation", "~$29/mo", 29, "Generate and test ad visuals + copy at scale. Performance scoring before you launch", "adcreative"));
+    }
+    if (a.budget === "mid" || a.budget === "high") {
+      tools.push(tool("Foreplay", "Creative swipe file (100M+ ads)", "~$49/mo", 49, "Save and organize winning ad creatives from competitors. Essential for creative strategy", "foreplay"));
+    }
+
+    return { layer: "outreach", icon: "📣", label: "Ads & Growth", tools };
+  }
 
   if (a.channel === "cold_email") {
     if (a.budget === "bootstrapped") {
@@ -259,6 +293,21 @@ function getCRMLayer(a: QuizAnswers): LayerRecommendation {
   const tools: ToolRecommendation[] = [];
 
   // CRM
+  // E-commerce: Shopify is the CRM. Add attribution + reporting tools.
+  if (a.product === "ecommerce") {
+    if (a.budget === "bootstrapped" || a.budget === "low") {
+      tools.push(tool("Shopify Analytics", "Built-in store analytics", "$0/mo", 0, "Already included with Shopify. Sales, customer, and marketing reports", "shopify"));
+      tools.push(tool("UTM Parameters + Sheets", "Manual attribution tracking", "$0/mo", 0, "Don't pay for attribution until spending $3K+/mo on ads", "google_sheets"));
+    } else if (a.budget === "mid") {
+      tools.push(tool("Triple Whale", "DTC attribution & analytics", "~$129/mo", 129, "Shopify-native. Profit-focused metrics, ROAS tracking, customer journey attribution", "triple_whale"));
+    } else {
+      tools.push(tool("Triple Whale", "DTC attribution & analytics", "~$129/mo", 129, "Shopify-native attribution. See true ROAS across all channels", "triple_whale"));
+      tools.push(tool("Northbeam", "ML-based incrementality testing", "~$1,000/mo", 1000, "Platform-agnostic attribution for high-spend teams", "northbeam"));
+    }
+    tools.push(tool("Looker Studio", "Free dashboards & reporting", "$0/mo", 0, "Free unlimited dashboards. Connect Shopify, GA4, and ad platforms", "looker_studio"));
+    return { layer: "crm", icon: "📊", label: "Attribution & Analytics", tools };
+  }
+
   if (a.stage === "pre_revenue") {
     tools.push(tool("Google Sheets", "Simple deal tracking", "$0/mo", 0, "You don't need a CRM yet. Track deals until you have 20+ active conversations", "google_sheets"));
   } else if (a.team === "solo") {
@@ -441,9 +490,9 @@ function getSetupOrder(a: QuizAnswers): string[] {
 
 const labelMap: Record<string, string> = {
   b2b_saas: "B2B SaaS",
-  hardware: "Hardware",
+  ecommerce: "E-commerce/DTC",
+  hardware: "Hardware/Deep Tech",
   services: "Services/Agency",
-  marketplace: "Marketplace",
   pre_revenue: "Pre-revenue",
   early_revenue: "Early Revenue",
   growing: "Growing",
