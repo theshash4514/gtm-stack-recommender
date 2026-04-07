@@ -58,8 +58,11 @@ export default function QuizPage() {
     router.push("/results");
   };
 
+  // Skip email gate — go straight to results
   if (quizComplete) {
-    return <EmailGate onSubmit={handleEmailSubmit} loading={saving} />;
+    sessionStorage.setItem("quiz_answers", JSON.stringify(answers));
+    router.push("/results");
+    return null;
   }
 
   return (
