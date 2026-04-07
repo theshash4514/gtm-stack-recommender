@@ -149,7 +149,18 @@ function getEnrichmentLayer(a: QuizAnswers): LayerRecommendation {
     tools.push(tool("Clay Growth", "Full waterfall + CRM sync + HTTP APIs", "~$495/mo", 495, "Maximum coverage. Standard for funded startups", "clay"));
   }
 
-  return { layer: "enrichment", icon: "🔍", label: "Enrichment & Research", tools };
+  // Dynamic label based on channel
+  const enrichLabel =
+    a.channel === "paid_ads" ? "Analytics & Insights" :
+    a.channel === "content" ? "Visitor Intelligence" :
+    "Enrichment & Research";
+
+  const enrichIcon =
+    a.channel === "paid_ads" ? "📈" :
+    a.channel === "content" ? "👁️" :
+    "🔍";
+
+  return { layer: "enrichment", icon: enrichIcon, label: enrichLabel, tools };
 }
 
 function getOutreachLayer(a: QuizAnswers): LayerRecommendation {
