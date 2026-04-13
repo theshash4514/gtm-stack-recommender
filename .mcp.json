@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "fireflies": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://api.fireflies.ai/mcp",
+        "--header",
+        "Authorization: Bearer acede30d-119a-4244-bf08-985b7799a7e1"
+      ]
+    },
+    "calendly": {
+      "command": "npx",
+      "args": ["calendly-mcp-server"],
+      "env": {
+        "CALENDLY_API_KEY": "eyJraWQiOiIxY2UxZTEzNjE3ZGNmNzY2YjNjZWJjY2Y4ZGM1YmFmYThhNjVlNjg0MDIzZjdjMzJiZTgzNDliMjM4MDEzNWI0IiwidHlwIjoiUEFUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNzc1NzY5ODk1LCJqdGkiOiI3MmY0MWI0MC04YTAyLTQyNzctYmFjYS0zM2IwMjc0NjdlNTMiLCJ1c2VyX3V1aWQiOiI0YWFlY2IxOC05ZWEzLTQwN2EtODViNC0xYzYxNWZlYWRkZGUiLCJzY29wZSI6ImF2YWlsYWJpbGl0eTpyZWFkIGF2YWlsYWJpbGl0eTp3cml0ZSBldmVudF90eXBlczpyZWFkIGV2ZW50X3R5cGVzOndyaXRlIGxvY2F0aW9uczpyZWFkIHJvdXRpbmdfZm9ybXM6cmVhZCBzaGFyZXM6d3JpdGUgc2NoZWR1bGVkX2V2ZW50czpyZWFkIHNjaGVkdWxlZF9ldmVudHM6d3JpdGUgc2NoZWR1bGluZ19saW5rczp3cml0ZSBncm91cHM6cmVhZCBvcmdhbml6YXRpb25zOnJlYWQgb3JnYW5pemF0aW9uczp3cml0ZSB1c2VyczpyZWFkIGFjdGl2aXR5X2xvZzpyZWFkIGRhdGFfY29tcGxpYW5jZTp3cml0ZSBvdXRnb2luZ19jb21tdW5pY2F0aW9uczpyZWFkIHdlYmhvb2tzOnJlYWQgd2ViaG9va3M6d3JpdGUifQ.uvKVOvKMrFaCv5p0ChrGyLxF9KaQ2Ls4DVXYF3CjDHWtQUwpdFY5r6i4gt2jZUrJUe4yfAxD9BANWj1kL4eFrw",
+        "CALENDLY_USER_URI": "https://api.calendly.com/users/4aaecb18-9ea3-407a-85b4-1c615feaddde",
+        "CALENDLY_ORGANIZATION_URI": "https://api.calendly.com/organizations/09dc15ab-99b4-45c5-bf70-c5a2539d26db"
+      }
+    },
+    "instantly": {
+      "type": "http",
+      "url": "https://mcp.instantly.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer MzRlMzM4ZjAtZjk3Ny00YzY2LWEwZTctZWNmNDYzN2RhNGNiOmljbGhiUW1OdUhtYw=="
+      }
+    }
+  }
+}

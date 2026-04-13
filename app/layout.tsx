@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { Suspense } from "react";
+import { RefCapture } from "@/components/RefCapture";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -28,6 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-montserrat)]">
+        <Suspense>
+          <RefCapture />
+        </Suspense>
         {children}
       </body>
     </html>

@@ -1,10 +1,11 @@
-const affiliateLinks: Record<string, string> = {
+// Default (Crescendo) affiliate links
+const defaultLinks: Record<string, string> = {
   shopify: "https://www.shopify.com/?utm_source=gtm-stack-recommender&utm_medium=referral",
   klaviyo: "https://www.klaviyo.com/?utm_source=gtm-stack-recommender&utm_medium=referral",
-  apollo: "https://get.apollo.io/ufxiyhtryi6e",
+  apollo: "https://www.apollo.io/?utm_source=gtm-stack-recommender&utm_medium=referral",
   linkedin_sales_nav: "https://business.linkedin.com/sales-solutions?utm_source=gtm-stack-recommender",
   spyfu: "https://www.spyfu.com/?utm_source=gtm-stack-recommender",
-  clay: "https://clay.com/?via=524431",
+  clay: "https://www.clay.com/?utm_source=gtm-stack-recommender",
   zoominfo: "https://www.zoominfo.com/?utm_source=gtm-stack-recommender",
   cognism: "https://www.cognism.com/?utm_source=gtm-stack-recommender",
   semrush: "https://www.semrush.com/?utm_source=gtm-stack-recommender",
@@ -12,12 +13,12 @@ const affiliateLinks: Record<string, string> = {
   ga4: "https://analytics.google.com/?utm_source=gtm-stack-recommender",
   hotjar: "https://www.hotjar.com/?utm_source=gtm-stack-recommender",
   clearbit: "https://clearbit.com/?utm_source=gtm-stack-recommender",
-  saleshandy: "https://www.saleshandy.com/?p=v3&via=b8a97c",
-  instantly: "https://refer.instantly.ai/0t428zrv2uk6",
-  smartlead: "https://smartlead.ai/?via=jasper",
+  saleshandy: "https://www.saleshandy.com/?utm_source=gtm-stack-recommender",
+  instantly: "https://instantly.ai/?utm_source=gtm-stack-recommender",
+  smartlead: "https://www.smartlead.ai/?utm_source=gtm-stack-recommender",
   waalaxy: "https://www.waalaxy.com/?utm_source=gtm-stack-recommender",
-  heyreach: "https://heyreach.io/?via=jasper",
-  lemlist: "https://get.lemlist.com/65e425u50750",
+  heyreach: "https://heyreach.io/?utm_source=gtm-stack-recommender",
+  lemlist: "https://www.lemlist.com/?utm_source=gtm-stack-recommender",
   meta_ads: "https://www.facebook.com/business/ads?utm_source=gtm-stack-recommender",
   adcreative: "https://www.adcreative.ai/?utm_source=gtm-stack-recommender",
   youtube_ads: "https://ads.google.com/intl/en/home/campaigns/video-ads/?utm_source=gtm-stack-recommender",
@@ -35,8 +36,6 @@ const affiliateLinks: Record<string, string> = {
   surfer: "https://surferseo.com/?utm_source=gtm-stack-recommender",
   buffer: "https://buffer.com/?utm_source=gtm-stack-recommender",
   typefully: "https://typefully.com/?utm_source=gtm-stack-recommender",
-  aisdr: "https://www.aisdr.com/?utm_source=gtm-stack-recommender",
-  artisan: "https://www.artisan.co/?utm_source=gtm-stack-recommender",
   google_sheets: "https://sheets.google.com/?utm_source=gtm-stack-recommender",
   notion: "https://www.notion.so/?utm_source=gtm-stack-recommender",
   folk: "https://www.folk.app/?utm_source=gtm-stack-recommender",
@@ -65,8 +64,28 @@ const affiliateLinks: Record<string, string> = {
   bardeen: "https://www.bardeen.ai/?utm_source=gtm-stack-recommender",
   lindy: "https://www.lindy.ai/?utm_source=gtm-stack-recommender",
   microsoft_clarity: "https://clarity.microsoft.com/?utm_source=gtm-stack-recommender",
+  fireflies: "https://app.fireflies.ai/?utm_source=gtm-stack-recommender",
+  phantombuster: "https://phantombuster.com/?utm_source=gtm-stack-recommender",
+  trigify: "https://trigify.io/?utm_source=gtm-stack-recommender",
 };
 
-export function getAffiliateLink(key: string): string {
-  return affiliateLinks[key] || "#";
+// Jasper (ref=j) affiliate overrides — only tools he has affiliate links for
+const jasperOverrides: Record<string, string> = {
+  apollo: "https://get.apollo.io/ufxiyhtryi6e",
+  clay: "https://clay.com/?via=524431",
+  saleshandy: "https://www.saleshandy.com/?p=v3&via=b8a97c",
+  instantly: "https://refer.instantly.ai/0t428zrv2uk6",
+  smartlead: "https://smartlead.ai/?via=jasper",
+  heyreach: "https://heyreach.io/?via=jasper",
+  lemlist: "https://get.lemlist.com/65e425u50750",
+  phantombuster: "https://phantombuster.com/?deal=jasper82",
+  trigify: "https://trigify.io/?via=jasper",
+  fireflies: "https://app.fireflies.ai/login?referralCode=RImYW4Yt",
+};
+
+export function getAffiliateLink(key: string, ref?: string | null): string {
+  if (ref === "j" && jasperOverrides[key]) {
+    return jasperOverrides[key];
+  }
+  return defaultLinks[key] || "#";
 }

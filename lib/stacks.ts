@@ -117,6 +117,15 @@ function getDataLayer(a: QuizAnswers): LayerRecommendation {
     }
   }
 
+  // Trigify: LinkedIn signal monitoring for outbound teams with budget
+  if (
+    a.product !== "ecommerce" &&
+    (a.channel === "linkedin" || a.channel === "multi_channel") &&
+    (a.budget === "mid" || a.budget === "high")
+  ) {
+    tools.push(tool("Trigify", "LinkedIn signal monitoring", "~$49/mo", 49, "Track job changes, promotions, posts, and company signals on LinkedIn. Trigger outreach at exactly the right moment", "trigify"));
+  }
+
   const dataLabel = a.product === "ecommerce" ? "Store & Customer Data" : "Data & Prospecting";
   const dataIcon = a.product === "ecommerce" ? "🛒" : "🎯";
 
@@ -161,6 +170,9 @@ function getEnrichmentLayer(a: QuizAnswers): LayerRecommendation {
     tools.push(tool("Apollo Enrichment", "CRM enrichment (included with Apollo free tier)", "$0/mo", 0, "Already included — 100 CRM enrichments/mo, contact & account data, 1 intent topic. Good enough for early stage", "apollo"));
   } else if (a.budget === "low") {
     tools.push(tool("BetterContact", "Waterfall enrichment across 20+ providers", "~$35/mo", 35, "99.5% verification accuracy. 80% cheaper than Clay for pure contact data", "bettercontact"));
+    if (a.channel === "linkedin" || a.channel === "multi_channel") {
+      tools.push(tool("Phantombuster", "LinkedIn scraping & automation", "~$56/mo", 56, "Scrape LinkedIn profiles, company pages, and search results at scale. Budget alternative to Clay for LinkedIn data", "phantombuster"));
+    }
   } else if (a.budget === "mid") {
     tools.push(tool("Clay Launch", "Waterfall enrichment + AI research agent", "~$185/mo", 185, "Claygent browses websites, reads LinkedIn profiles, synthesizes unstructured data", "clay"));
   } else {
@@ -367,6 +379,15 @@ function getCRMLayer(a: QuizAnswers): LayerRecommendation {
     } else {
       tools.push(tool("Northbeam", "ML-based incrementality testing", "~$1,000/mo", 1000, "Platform-agnostic attribution for high-spend teams", "northbeam"));
     }
+  }
+
+  // Fireflies: AI meeting notetaker for teams doing demos/calls
+  if (
+    a.team !== "solo" &&
+    a.budget !== "bootstrapped" &&
+    (a.channel === "cold_email" || a.channel === "linkedin" || a.channel === "multi_channel")
+  ) {
+    tools.push(tool("Fireflies.ai", "AI meeting recorder & notetaker", "~$19/user/mo", 38, "Auto-records calls, generates summaries, action items, and CRM notes. Essential for sales teams doing demos", "fireflies"));
   }
 
   // Reporting
